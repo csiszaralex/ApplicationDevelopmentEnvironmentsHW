@@ -1,19 +1,21 @@
 **Házi feladat**
 
-Csapatnév:
+Csapatnév: 20cmProcastinationStation
 
 Csapattagok Neptun kóddal:
-- Minta Mókus (ABC123)
-- Minta Mókus (ABC123)
-- Minta Mókus (ABC123)
 
-Bemutató videó URL: 
+- Csiszár Alex Gergő (PL4XKM)
+- Smuk Ferenc (NRWCFL)
+- Varga David Imre (Z8JXEQ)
+
+Bemutató videó URL:
 (Ugye minden olyan dolog szerepel benne a kiírásnak megfelelően, amire pontot szeretnétek kapni?)
 
 **Pontot érő technológiák**
 (Amit elkészítettetek, azt X-eljétek be!)
 
 Alap feladatok (maximális kapható pontokkal):
+
 - [ ] 7p: Yocto projekt alapokon készített szerver vagy kliens (házi feladatonként egyszer)
 - [ ] 5p: Beágyazott Linux rendszerben (de nem Yocto alapokon) készített szerver vagy kliens (feladatonként egyszer).
 - [ ] 7p: QML alapú grafikus felület (benne legalább egy grafikon vagy egyéb rajzolás, egy lista, valamint menü)
@@ -32,6 +34,7 @@ Alap feladatok (maximális kapható pontokkal):
 - [ ] 3p: Logolási mechanizmus használata loglevel támogatással.
 
 Bónusz feladatok, melyek plusz utánajárást is igényelhetnek (maximális kapható pontokkal, csak ha az alap feladatokból időben leadva legalább 30 pont összegyűlt):
+
 - [ ] 5p: Linux alatt telepítő csomag készítése
 - [ ] 5p: Időzített taskok a backendben.
 - [ ] 5p: Linux alatt megszakítás kezelő készítése
@@ -46,6 +49,7 @@ A hivatalos teljes lista a HF feladatkiírásban található: https://www.aut.bm
 **A videó újrahasznosíthatósága**
 
 A házi feladat videót oktatási célokra újrahasznosíthatjuk? (Későbbi évfolyamoknak bemutatás, vágott anyagban felhasználás.)
+
 - [ ] Igen, a szerzők megjelölésével
 - [ ] Igen, névtelenül
 - [ ] Nem
