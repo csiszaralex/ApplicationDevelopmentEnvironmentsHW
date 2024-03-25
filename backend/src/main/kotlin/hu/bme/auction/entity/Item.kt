@@ -34,6 +34,9 @@ open class Item {
     @ManyToOne(cascade = [CascadeType.ALL], optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     open var user: User? = null
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "item", orphanRemoval = true)
+    open var bids: MutableSet<Bid> = mutableSetOf()
 }
 
 enum class Quality {
