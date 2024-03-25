@@ -34,6 +34,9 @@ open class User {
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     open var bids: MutableSet<Bid> = mutableSetOf()
+
+    @OneToMany(mappedBy = "provider", orphanRemoval = true)
+    open var feedbacks: MutableSet<Feedback> = mutableSetOf()
 }
 
 enum class Role {

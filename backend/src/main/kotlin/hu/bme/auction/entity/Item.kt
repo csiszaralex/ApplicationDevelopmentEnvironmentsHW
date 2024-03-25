@@ -37,6 +37,9 @@ open class Item {
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "item", orphanRemoval = true)
     open var bids: MutableSet<Bid> = mutableSetOf()
+
+    @OneToMany(mappedBy = "item", orphanRemoval = true)
+    open var feedbacks: MutableSet<Feedback> = mutableSetOf()
 }
 
 enum class Quality {
