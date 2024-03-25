@@ -11,7 +11,7 @@ open class Bid {
     @Column(name = "id", nullable = false)
     open var id: Long? = null
 
-    @Column(name = "issuedAt")
+    @Column(name = "issued_at")
     open var issuedAt: OffsetDateTime? = null
 
     @Column(name = "amount", nullable = false)
