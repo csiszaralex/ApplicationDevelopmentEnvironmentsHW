@@ -16,22 +16,22 @@ Bemutató videó URL:
 
 Alap feladatok (maximális kapható pontokkal):
 
-- [ ] 7p: Yocto projekt alapokon készített szerver vagy kliens (házi feladatonként egyszer)
-- [ ] 5p: Beágyazott Linux rendszerben (de nem Yocto alapokon) készített szerver vagy kliens (feladatonként egyszer).
-- [ ] 7p: QML alapú grafikus felület (benne legalább egy grafikon vagy egyéb rajzolás, egy lista, valamint menü)
-- [ ] 7p: REST API (benne új adat létrehozása, lekérdezés, adat módosítása, logikusan felépített URL-ekkel)
-- [ ] 8p: Több felhasználó, az authentikáció és különböző szerepkörök támogatása.
+- [?] 7p: Yocto projekt alapokon készített szerver vagy kliens (házi feladatonként egyszer)
+- [?] 5p: Beágyazott Linux rendszerben (de nem Yocto alapokon) készített szerver vagy kliens (feladatonként egyszer).
+- [F] 7p: QML alapú grafikus felület (benne legalább egy grafikon vagy egyéb rajzolás, egy lista, valamint menü)
+- [B] 7p: REST API (benne új adat létrehozása, lekérdezés, adat módosítása, logikusan felépített URL-ekkel)
+- [B] 8p: Több felhasználó, az authentikáció és különböző szerepkörök támogatása.
 - [ ] 7p: Linux alatt saját, jól átgondolt kommunikációs protokoll implementálása.
 - [ ] 15p: Linux alatt eszközvezérlő készítése
 - [ ] 5p: Aszinkron üzenetsorral kommunikáló szerverek (vagyis több backend komponens van).
-- [ ] 5p: Java Persistence API használata, legalább 5 osztállyal.
-- [ ] 2p: Spring Data használata
-- [ ] 3p: Függőséginjektálás Spring alapokon
+- [B] 5p: Java Persistence API használata, legalább 5 osztállyal.
+- [B] 2p: Spring Data használata
+- [B] 3p: Függőséginjektálás Spring alapokon
 - [ ] 3p: Az alapértelmezettől eltérő tranzakció kezelés.
-- [ ] 5p: Megfelelő biztonsági óvintézkedések (authorizáció, SQL injection kivédése, szerver oldali validáció, biztonságos jelszó tárolás stb.)
+- [B] 5p: Megfelelő biztonsági óvintézkedések (authorizáció, SQL injection kivédése, szerver oldali validáció, biztonságos jelszó tárolás stb.) -- salt van
 - [ ] 2p: Unit tesztek használata (Jelentős lefedettség esetén további bónusz pontokat ér.)
-- [ ] 3p: Qt alatt signals and slots mechanizmus használata.
-- [ ] 3p: Logolási mechanizmus használata loglevel támogatással.
+- [F] 3p: Qt alatt signals and slots mechanizmus használata.
+- [B] 3p: Logolási mechanizmus használata loglevel támogatással.
 
 Bónusz feladatok, melyek plusz utánajárást is igényelhetnek (maximális kapható pontokkal, csak ha az alap feladatokból időben leadva legalább 30 pont összegyűlt):
 
@@ -50,6 +50,6 @@ A hivatalos teljes lista a HF feladatkiírásban található: https://www.aut.bm
 
 A házi feladat videót oktatási célokra újrahasznosíthatjuk? (Későbbi évfolyamoknak bemutatás, vágott anyagban felhasználás.)
 
-- [ ] Igen, a szerzők megjelölésével
+- [X] Igen, a szerzők megjelölésével
 - [ ] Igen, névtelenül
 - [ ] Nem
