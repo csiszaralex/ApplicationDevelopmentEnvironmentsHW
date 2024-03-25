@@ -30,7 +30,7 @@ open class User {
     open var role: Role? = null
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    open var items: MutableSet<Item> = mutableSetOf()
+    open var items: MutableList<Item> = mutableListOf()
 }
 
 enum class Role {

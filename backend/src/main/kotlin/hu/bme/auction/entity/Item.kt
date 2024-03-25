@@ -22,10 +22,10 @@ open class Item {
     @Column(name = "payed")
     open var payed: Boolean? = null
 
-    @Column(name = "from")
+    @Column(name = "from_date")
     open var from: OffsetDateTime? = null
 
-    @Column(name = "to")
+    @Column(name = "to_date")
     open var to: OffsetDateTime? = null
 
     @Column(name = "starting_bid", nullable = false)
