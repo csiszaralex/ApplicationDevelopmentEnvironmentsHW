@@ -2,28 +2,25 @@ package hu.bme.auction.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.Positive
-import java.time.OffsetDateTime
 
 @Entity
-@Table(name = "bids")
-open class Bid {
+@Table(name = "watchlists")
+open class Watchlist {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     open var id: Long? = null
 
-    @Column(name = "issued_at", nullable = false)
-    open var issuedAt: OffsetDateTime = OffsetDateTime.now()
-
-    @Column(name = "amount", nullable = false)
-    @Positive(message = "Amount must be positive")
-    open var amount: Int? = null
-
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     open var user: User? = null
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
+    @Positive(message = "Item must be set")
     open var item: Item? = null
+
+    @Column(name = "max_price", nullable = false)
+    @Positive(message = "maxPrice is required and must be at least 1")
+    open var maxPrice: Int = 0
 }

@@ -1,6 +1,8 @@
 package hu.bme.auction.entity
 
 import jakarta.persistence.*
+import jakarta.validation.constraints.FutureOrPresent
+import jakarta.validation.constraints.NotNull
 import org.hibernate.proxy.HibernateProxy
 import java.time.OffsetDateTime
 
@@ -13,33 +15,38 @@ open class Item {
     open var id: Long? = null
 
     @Column(name = "title", nullable = false)
+    @NotNull
     open var title: String? = null
 
     @Enumerated
-    @Column(name = "quality")
-    open var quality: Quality? = null
+    @Column(name = "quality", nullable = false)
+    open var quality: Quality = Quality.NEW
 
-    @Column(name = "payed")
-    open var payed: Boolean? = null
+    @Column(name = "payed", nullable = false)
+    open var payed: Boolean = false
 
-    @Column(name = "from_date")
-    open var from: OffsetDateTime? = null
+    @Column(name = "from_date", nullable = false)
+    @FutureOrPresent
+    open var from: OffsetDateTime = OffsetDateTime.now()
 
-    @Column(name = "to_date")
+    @Column(name = "to_date", nullable = false)
+    @FutureOrPresent(message = "")
     open var to: OffsetDateTime? = null
 
     @Column(name = "starting_bid", nullable = false)
-    open var startingBid: Int? = null
+    open var startingBid: Int = 0
 
-    @ManyToOne(cascade = [CascadeType.ALL], optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     open var user: User? = null
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "item", orphanRemoval = true)
     open var bids: MutableSet<Bid> = mutableSetOf()
 
-    @OneToMany(mappedBy = "item", orphanRemoval = true)
-    open var feedbacks: MutableSet<Feedback> = mutableSetOf()
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @NotNull
+    open var category: Category? = null
 
     @OneToMany(mappedBy = "item", cascade = [CascadeType.ALL], orphanRemoval = true)
     open var watchlists: MutableSet<Watchlist> = mutableSetOf()
