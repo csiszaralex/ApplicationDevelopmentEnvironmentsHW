@@ -1,9 +1,8 @@
-package hu.bme.auction.repository
+package hu.bme.auction.dao
 
-import hu.bme.auction.entity.User
+import org.h2.engine.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository: JpaRepository<User, Long> {
-}
+interface UserRepository :JpaRepository<User, Long>
