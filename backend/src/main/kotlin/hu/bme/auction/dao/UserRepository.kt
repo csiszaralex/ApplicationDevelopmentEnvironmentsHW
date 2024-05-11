@@ -1,6 +1,6 @@
 package hu.bme.auction.dao
 
-import org.h2.engine.User
+import hu.bme.auction.entity.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
