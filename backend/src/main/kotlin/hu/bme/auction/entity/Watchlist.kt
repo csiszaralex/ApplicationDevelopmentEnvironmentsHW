@@ -19,8 +19,4 @@ open class Watchlist {
     @JoinColumn(name = "item_id", nullable = false)
     @Positive(message = "Item must be set")
     open var item: Item? = null
-
-    @Column(name = "max_price", nullable = false)
-    @Positive(message = "maxPrice is required and must be at least 1")
-    open var maxPrice: Int = 0
 }
