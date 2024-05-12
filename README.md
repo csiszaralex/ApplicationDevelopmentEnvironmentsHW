@@ -31,7 +31,7 @@ Alap feladatok (maximális kapható pontokkal):
 - [B] 5p: Megfelelő biztonsági óvintézkedések (authorizáció, SQL injection kivédése, szerver oldali validáció, biztonságos jelszó tárolás stb.) -- salt van
 - [B] 2p: Unit tesztek használata (Jelentős lefedettség esetén további bónusz pontokat ér.)
 - [F] 3p: Qt alatt signals and slots mechanizmus használata.
-- [B] 3p: Logolási mechanizmus használata loglevel támogatással.
+- [X] 3p: Logolási mechanizmus használata loglevel támogatással.
 
 Bónusz feladatok, melyek plusz utánajárást is igényelhetnek (maximális kapható pontokkal, csak ha az alap feladatokból időben leadva legalább 30 pont összegyűlt):
 

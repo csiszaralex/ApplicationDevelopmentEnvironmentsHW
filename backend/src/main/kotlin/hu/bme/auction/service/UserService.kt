@@ -4,7 +4,6 @@ import hu.bme.auction.dao.UserRepository
 import hu.bme.auction.dto.LoginUserDto
 import hu.bme.auction.dto.RegisterUserDto
 import hu.bme.auction.entity.User
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.security.MessageDigest
 import java.security.SecureRandom
@@ -12,8 +11,6 @@ import java.util.*
 
 @Service
 class UserService(private val userRepository: UserRepository) {
-    private val log = LoggerFactory.getLogger(javaClass)
-
     fun registerUser(u: RegisterUserDto): User {
         val salt = generateSalt()
         val user = User()
