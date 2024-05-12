@@ -1,0 +1,12 @@
+--resource
+D:/School/Alkalmazas/hazi/Bidder/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmake_Bidder.qrc
+--resource
+D:/School/Alkalmazas/hazi/Bidder/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/appBidder_raw_qml_0.qrc
+/Bidder/qml/Main.qml
+/Bidder/qml/ControlPanel.qml
+/Bidder/qml/MenuSideBar.qml
+/Bidder/qml/ExplorePage.qml
+/Bidder/qml/WatchlistPage.qml
+/Bidder/qml/BidsPage.qml
+/Bidder/qml/OwnGoodsPage.qml
+/Bidder/qml/AccountPage.qml

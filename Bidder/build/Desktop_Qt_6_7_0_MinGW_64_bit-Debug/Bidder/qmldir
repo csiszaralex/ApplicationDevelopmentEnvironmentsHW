@@ -1,0 +1,12 @@
+module Bidder
+typeinfo appBidder.qmltypes
+prefer :/Bidder/
+Main 1.0 qml/Main.qml
+ControlPanel 1.0 qml/ControlPanel.qml
+MenuSideBar 1.0 qml/MenuSideBar.qml
+ExplorePage 1.0 qml/ExplorePage.qml
+WatchlistPage 1.0 qml/WatchlistPage.qml
+BidsPage 1.0 qml/BidsPage.qml
+OwnGoodsPage 1.0 qml/OwnGoodsPage.qml
+AccountPage 1.0 qml/AccountPage.qml
+
