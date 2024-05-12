@@ -25,14 +25,6 @@ open class Item {
     @Column(name = "payed", nullable = false)
     open var payed: Boolean = false
 
-    @Column(name = "from_date", nullable = false)
-    @FutureOrPresent
-    open var from: OffsetDateTime = OffsetDateTime.now()
-
-    @Column(name = "to_date", nullable = false)
-    @FutureOrPresent(message = "")
-    open var to: OffsetDateTime? = null
-
     @Column(name = "starting_bid", nullable = false)
     open var startingBid: Int = 0
 
