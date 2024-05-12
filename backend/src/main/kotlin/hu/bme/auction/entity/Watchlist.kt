@@ -9,16 +9,16 @@ open class Watchlist() {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    var id: Long? = null
+    open var id: Long? = null
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    var user: User? = null
+    open var user: User? = null
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
     @Positive(message = "Item must be set")
-    var item: Item? = null
+    open var item: Item? = null
 
     constructor(user: User, item: Item) : this() {
         this.user = user

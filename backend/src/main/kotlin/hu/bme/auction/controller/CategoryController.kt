@@ -2,12 +2,15 @@ package hu.bme.auction.controller
 
 import hu.bme.auction.entity.Category
 import hu.bme.auction.service.CategoryService
-import org.springframework.http.*
+import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/category")
 class CategoryController(val categoryService: CategoryService) {
+    private val log = LoggerFactory.getLogger(javaClass)
     @GetMapping()
     fun getAll(): ResponseEntity<List<Category>> {
         val lista: List<Category> = categoryService.getAll()
@@ -25,17 +28,20 @@ class CategoryController(val categoryService: CategoryService) {
 
     @PostMapping()
     fun create(@RequestBody cat: Category): Category {
+        log.info("Category created: $cat")
         return categoryService.create(cat)
     }
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Long, @RequestBody cat: Category): ResponseEntity<Category> {
         val newCat = categoryService.update(id, cat) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+        log.info("Category updated: $newCat")
         return ResponseEntity.ok(newCat)
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long){
+        log.info("Category deleted: $id")
         return categoryService.delete(id)
     }
 }
