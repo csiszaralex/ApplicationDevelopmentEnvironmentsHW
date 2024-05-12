@@ -5,18 +5,23 @@ import jakarta.validation.constraints.Positive
 
 @Entity
 @Table(name = "watchlists")
-open class Watchlist {
+open class Watchlist() {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    open var id: Long? = null
+    var id: Long? = null
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    open var user: User? = null
+    var user: User? = null
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
     @Positive(message = "Item must be set")
-    open var item: Item? = null
+    var item: Item? = null
+
+    constructor(user: User, item: Item) : this() {
+        this.user = user
+        this.item = item
+    }
 }

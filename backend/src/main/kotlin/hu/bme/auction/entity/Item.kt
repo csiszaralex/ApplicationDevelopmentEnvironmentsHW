@@ -1,10 +1,7 @@
 package hu.bme.auction.entity
 
 import jakarta.persistence.*
-import jakarta.validation.constraints.FutureOrPresent
 import jakarta.validation.constraints.NotNull
-import org.hibernate.proxy.HibernateProxy
-import java.time.OffsetDateTime
 
 @Entity
 @Table(name = "items")
