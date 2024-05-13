@@ -39,7 +39,7 @@ Bónusz feladatok, melyek plusz utánajárást is igényelhetnek (maximális kap
 - [ ] 5p: Linux alatt telepítő csomag készítése
 - [X] 5p: Időzített taskok a backendben.
 - [ ] 5p: Linux alatt megszakítás kezelő készítése
-- [ ] 5p: E-mail küldés a backendben.
+- [X] 5p: E-mail küldés a backendben.
 - [ ] 3-10p: Jelentős automatikus teszt lefedettség, lefedettségtől függően pontozva
 - [ ] 3p: QRC mechanizmus használata nem QML fájlok tárolására és elérésére.
 - [ ] 3p: Saját fejlesztésű dinamikusan linkelt könyvtár használata.

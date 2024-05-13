@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ItemRepository : JpaRepository<Item, Long>{
     fun findByCategoryId(categoryId: Long): List<Item>
+
+    fun findWithBidsAndWatchlistsById(id: Long): Item?
+
 }
