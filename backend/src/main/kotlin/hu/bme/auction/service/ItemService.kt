@@ -2,15 +2,18 @@ package hu.bme.auction.service
 
 import hu.bme.auction.dao.ItemRepository
 import hu.bme.auction.dao.UserRepository
+import hu.bme.auction.dao.WatchlistRepository
 import hu.bme.auction.entity.Item
 import hu.bme.auction.entity.Watchlist
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 
 @Service
 class ItemService(
     val itemRepository: ItemRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val watchlistRepository: WatchlistRepository
 ) {
 
     fun getAll(): List<Item> {
@@ -59,6 +62,18 @@ class ItemService(
         if (watchlist != null) {
             item.watchlists.remove(watchlist)
             itemRepository.save(item)
+        }
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    fun removeEveryWatchFromPayedItemDaily() {
+        val items = itemRepository.findAll()
+        items.forEach { item ->
+            if (item.payed) {
+                item.watchlists.forEach(watchlistRepository::delete)
+                item.watchlists.clear()
+                itemRepository.save(item)
+            }
         }
     }
 
