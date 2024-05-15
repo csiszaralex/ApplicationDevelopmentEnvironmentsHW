@@ -26,13 +26,23 @@ qt_add_qml_module(appBidder
         qml/BidsPage.qml
         qml/OwnGoodsPage.qml
         qml/AccountPage.qml
+        qml/Form.qml
 
     RESOURCES
         assets/icons/menu.svg
         assets/icons/back.png
+        assets/icons/picture.svg
+        assets/icons/bell.png
+        assets/icons/bid.png
+        assets/icons/plus.png
+        assets/icons/delete.svg
 
     RESOURCES
         qml.qrc
+
+    SOURCES BidElement.h BidElement.cpp
+    SOURCES User.h User.cpp
+    SOURCES BidsList.h BidsList.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

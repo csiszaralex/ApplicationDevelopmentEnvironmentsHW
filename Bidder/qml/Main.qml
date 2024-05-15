@@ -114,5 +114,4 @@ Window {
         }
         initialItem: ExplorePage {}
     }
-
 }

@@ -50,7 +50,6 @@ Item {
             text: qsTr("Sign In")
             onTriggered: {
                 root.changePage("AccountPage.qml")
-                accountSwipeView.setCurrentIndex(0)
             }
         }
 
@@ -58,10 +57,10 @@ Item {
             text: qsTr("Sign Up")
             onTriggered: {
                 root.changePage("AccountPage.qml")
-                accountSwipeView.setCurrentIndex(1)
             }
-
         }
+
+
 
         delegate: MenuItem {
             id: menuItem

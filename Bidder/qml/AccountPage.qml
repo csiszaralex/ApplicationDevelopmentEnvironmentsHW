@@ -9,7 +9,7 @@ Page {
     }
 
     SwipeView {
-        id: accountSwipeView
+        id: accountView
         anchors.fill: parent
 
         background: Rectangle {
@@ -17,10 +17,10 @@ Page {
         }
 
         Page {
-            id:signInPage
+            id: signInPage
             title: "Sign In"
             background: Rectangle {
-                color: applicationWindow.baseColor
+                color: parent.background.color
             }
 
             Rectangle {
@@ -37,10 +37,10 @@ Page {
         }
 
         Page {
-            id:signUpPage
+            id: signUpPage
             title: "Sign Up"
             background: Rectangle {
-                color: applicationWindow.baseColor
+                color: parent.background.color
             }
 
             Rectangle {
@@ -62,8 +62,13 @@ Page {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
 
-        currentIndex: accountSwipeView.currentIndex
-        count: accountSwipeView.count
+        currentIndex: accountView.currentIndex
+        count: accountView.count
+    }
+
+    function swipe(index) {
+        accountView.setCurrentIndex(index)
+        console.log("Swiped to page:", index)
     }
 }
 

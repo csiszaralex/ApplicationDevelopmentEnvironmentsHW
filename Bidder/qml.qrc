@@ -9,6 +9,7 @@
 	<file>qml/AccountPage.qml</file>
 	
         <file>qml/ControlPanel.qml</file>
+	<file>qml/Form.qml</file>
         <file>qml/MenuSideBar.qml</file>>
     </qresource>
 </RCC>
