@@ -36,6 +36,7 @@ class CategoryController(val categoryService: CategoryService) {
     fun update(@PathVariable id: Long, @RequestBody cat: Category): ResponseEntity<Category> {
         val newCat = categoryService.update(id, cat) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         log.info("Category updated: $newCat")
+        newCat.items = mutableSetOf()
         return ResponseEntity.ok(newCat)
     }
 

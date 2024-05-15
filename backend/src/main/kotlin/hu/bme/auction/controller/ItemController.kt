@@ -1,5 +1,7 @@
 package hu.bme.auction.controller
 
+import hu.bme.auction.dto.CreateItemDto
+import hu.bme.auction.dto.ItemWithDetailsDto
 import hu.bme.auction.entity.Item
 import hu.bme.auction.service.ItemService
 import org.slf4j.LoggerFactory
@@ -12,12 +14,23 @@ import org.springframework.web.bind.annotation.*
 class ItemController(val itemService: ItemService) {
     private val log = LoggerFactory.getLogger(javaClass)
     @GetMapping()
-    fun getAll(): ResponseEntity<List<Item>> {
-        val lista: List<Item> = itemService.getAll()
-        if (lista.isEmpty()) {
+    fun getAll(): ResponseEntity<List<ItemWithDetailsDto>> {
+        val items: List<Item> = itemService.getAll()
+        if (items.isEmpty()) {
             return ResponseEntity(HttpStatus.NOT_FOUND)
         }
-        return ResponseEntity.ok(lista)
+        val finalItems: List<ItemWithDetailsDto> = items.map {
+            val itemWithDetailsDto = ItemWithDetailsDto()
+            itemWithDetailsDto.id = it.id ?: 0
+            itemWithDetailsDto.name = it.title ?: "No name"
+            itemWithDetailsDto.ownerId = it.user?.id ?: 0
+            itemWithDetailsDto.ownerName = it.user?.name ?: "No owner"
+            itemWithDetailsDto.highestBid = it.bids.maxByOrNull { i -> i.amount?:0 }?.amount ?: it.startingBid
+            itemWithDetailsDto.highestBidderName = it.bids.maxByOrNull { i-> i.amount?:0 }?.user?.name ?: it.user?.name ?: "No owner"
+            itemWithDetailsDto.category = it.category?.name ?: "No category"
+            itemWithDetailsDto
+        }
+        return ResponseEntity.ok(finalItems)
     }
 
     @GetMapping("/{id}")
@@ -27,9 +40,11 @@ class ItemController(val itemService: ItemService) {
     }
 
     @PostMapping()
-    fun create(@RequestBody i: Item): Item {
-        log.info("Item created: $i")
-        return itemService.create(i)
+    fun create(@RequestBody i: CreateItemDto): Item {
+        val cI = itemService.create(i)
+        log.info("Item created: $cI")
+        cI.user = null
+        return cI
     }
 
     @PutMapping("/{id}")

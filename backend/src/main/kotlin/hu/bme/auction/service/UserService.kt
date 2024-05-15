@@ -18,7 +18,7 @@ class UserService(private val userRepository: UserRepository) {
         user.email = u.email
         user.name = u.name
         user.fullName = u.fullName
-        user.password = hashPassword(user.password, salt)
+        user.password = hashPassword(u.password, salt)
         return userRepository.save(user)
     }
 

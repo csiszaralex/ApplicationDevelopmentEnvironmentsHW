@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull
 
 @Entity
 @Table(name = "categories")
-open class Category {
+open class Category() {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -17,4 +17,8 @@ open class Category {
 
     @OneToMany(mappedBy = "category", cascade = [CascadeType.ALL], orphanRemoval = true)
     open var items: MutableSet<Item> = mutableSetOf()
+
+    constructor( name: String?) : this() {
+        this.name = name
+    }
 }

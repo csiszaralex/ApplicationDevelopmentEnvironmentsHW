@@ -9,7 +9,14 @@ import org.springframework.stereotype.Service
 class CategoryService(val categoryRepository: CategoryRepository) {
 
     fun getAll(): List<Category> {
-        return categoryRepository.findAll()
+        val cats = categoryRepository.findAll()
+        cats.forEach{ cat ->
+            cat.items.forEach{ item ->
+                item.category = null
+                item.user = null
+            }
+        }
+        return cats
     }
 
     fun getOne(id: Long): Category? {
@@ -30,4 +37,8 @@ class CategoryService(val categoryRepository: CategoryRepository) {
         return categoryRepository.deleteById(id)
     }
 
+    fun getByNameOrCreate(name: String): Category? {
+        val cat = categoryRepository.findByName(name)
+        return cat ?: categoryRepository.save(Category(name = name))
+    }
 }

@@ -1,8 +1,10 @@
 package hu.bme.auction.service
 
+import hu.bme.auction.dao.CategoryRepository
 import hu.bme.auction.dao.ItemRepository
 import hu.bme.auction.dao.UserRepository
 import hu.bme.auction.dao.WatchlistRepository
+import hu.bme.auction.dto.CreateItemDto
 import hu.bme.auction.entity.Item
 import hu.bme.auction.entity.Watchlist
 import org.springframework.data.repository.findByIdOrNull
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Service
 class ItemService(
     val itemRepository: ItemRepository,
     private val userRepository: UserRepository,
-    private val watchlistRepository: WatchlistRepository
+    private val watchlistRepository: WatchlistRepository,
+    private val categoryRepository: CategoryRepository,
+    private val categoryService: CategoryService
 ) {
 
     fun getAll(): List<Item> {
@@ -24,8 +28,16 @@ class ItemService(
         return itemRepository.findByIdOrNull(id)
     }
 
-    fun create(Item: Item): Item {
-        return itemRepository.save(Item)
+    fun create(item: CreateItemDto): Item {
+        val i = Item()
+        i.title = item.title
+        i.payed = item.payed
+        i.startingBid = item.startingBid
+        i.user = userRepository.findByIdOrNull(item.userId)
+        i.category = categoryService.getByNameOrCreate(item.categoryName)
+        val newI = itemRepository.save(i)
+        newI.category?.items = mutableSetOf()
+        return newI
     }
 
     fun update(id: Long, item: Item): Item? {
@@ -66,7 +78,7 @@ class ItemService(
     }
 
     @Scheduled(cron = "0 0 0 * * *")
-    fun removeEveryWatchFromPayedItemDaily() {
+    fun removeEveryWatchFromPayedItem() {
         val items = itemRepository.findAll()
         items.forEach { item ->
             if (item.payed) {
