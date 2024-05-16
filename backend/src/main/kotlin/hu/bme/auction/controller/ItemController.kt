@@ -35,16 +35,25 @@ class ItemController(val itemService: ItemService) {
 
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): ResponseEntity<Item> {
-        val cat: Item = itemService.getOne(id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
-        return ResponseEntity.ok(cat)
+        val item: Item = itemService.getOne(id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+        item.user?.items = mutableSetOf()
+        item.category?.items = mutableSetOf()
+        return ResponseEntity.ok(item)
     }
 
     @PostMapping()
-    fun create(@RequestBody i: CreateItemDto): Item {
+    fun create(@RequestBody i: CreateItemDto): ItemWithDetailsDto {
         val cI = itemService.create(i)
         log.info("Item created: $cI")
-        cI.user = null
-        return cI
+        val itemWithDetailsDto = ItemWithDetailsDto()
+        itemWithDetailsDto.id = cI.id ?: 0
+        itemWithDetailsDto.name = cI.title ?: "No name"
+        itemWithDetailsDto.ownerId = cI.user?.id ?: 0
+        itemWithDetailsDto.ownerName = cI.user?.name ?: "No owner"
+        itemWithDetailsDto.highestBid = cI.startingBid
+        itemWithDetailsDto.highestBidderName = cI.user?.name ?: "No owner"
+        itemWithDetailsDto.category = cI.category?.name ?: "No category"
+        return itemWithDetailsDto
     }
 
     @PutMapping("/{id}")
@@ -62,13 +71,8 @@ class ItemController(val itemService: ItemService) {
 
     @GetMapping("/{itemId}/subscribe/{userId}")
     fun subscribeWatchlist(@PathVariable itemId: Long, @PathVariable userId: Long) {
-        itemService.subscribeWatchlist(itemId, userId)
-        log.info("User $userId subscribed to item $itemId")
-    }
-
-    @GetMapping("/{itemId}/unsubscribe/{userId}")
-    fun unsubscribeWatchlist(@PathVariable itemId: Long, @PathVariable userId: Long) {
-        itemService.unsubscribeWatchlist(itemId, userId)
-        log.info("User $userId unsubscribed from item $itemId")
+        val subsribed = itemService.subscribeWatchlist(itemId, userId)
+        if (subsribed == 1) log.info("User $userId subscribed to item $itemId")
+        else if(subsribed == 2) log.info("User $userId unsubscribed from item $itemId")
     }
 }

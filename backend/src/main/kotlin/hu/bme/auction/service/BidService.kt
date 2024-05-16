@@ -2,35 +2,51 @@ package hu.bme.auction.service
 
 import hu.bme.auction.dao.BidRepository
 import hu.bme.auction.dao.ItemRepository
+import hu.bme.auction.dao.UserRepository
+import hu.bme.auction.dto.CreateBidDto
 import hu.bme.auction.entity.Bid
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class BidService(val bidRepository: BidRepository, val itemRepository: ItemRepository, val emailSenderService: EmailSenderService) {
+class BidService(
+    val bidRepository: BidRepository,
+    val itemRepository: ItemRepository,
+    val emailSenderService: EmailSenderService,
+    private val userRepository: UserRepository
+) {
     fun getAll(): List<Bid> {
-        return bidRepository.findAll()
+        val bids = bidRepository.findAll()
+        bids.forEach {
+            it.item?.bids = mutableSetOf()
+            it.user?.bids = mutableSetOf()
+            it.user?.items = mutableSetOf()
+            it.item?.user = null
+            it.item?.category?.items = mutableSetOf()
+        }
+        return bids
     }
 
     fun getOne(id: Long): Bid? {
         return bidRepository.findByIdOrNull(id)
     }
 
-    fun create(bid: Bid): Bid {
-        val item = itemRepository.findWithBidsAndWatchlistsById(bid.item!!.id!!) ?: throw IllegalArgumentException("Item not found")
-        var maxEddig = 0
-        item.bids.forEach {
-            if (it.amount!! > maxEddig) {
-                maxEddig = it.amount!!
-            }
-        }
-        if (bid.amount!! <= maxEddig) throw IllegalArgumentException("Bid amount must be greater than the current highest bid")
+    fun create(bid: CreateBidDto): Bid {
+        val item = itemRepository.findByIdOrNull(bid.itemId) ?: throw IllegalArgumentException("Item not found")
+        if(item.startingBid >= bid.amount) throw IllegalArgumentException("Bid amount must be greater than the starting bid")
+        item.bids.forEach { if (it.amount!! >= bid.amount) throw IllegalArgumentException("Bid amount must be greater than the current highest bid") }
+        val user = userRepository.findByIdOrNull(bid.userId) ?: throw IllegalArgumentException("User not found")
 
-        item.watchlists.forEach {
-            emailSenderService.sendEmailForNewBid(item.title!!, bid.amount!!, it.user!!.email!!)
-        }
+        val newBid = Bid()
+        newBid.amount = bid.amount
+        newBid.item = item
+        newBid.user = user
 
-        return bidRepository.save(bid)
+        return bidRepository.save(newBid)
+
+//        item.watchlists.forEach {
+//            emailSenderService.sendEmailForNewBid(item.title!!, bid.amount!!, it.user!!.email!!)
+//        }
     }
 
     fun update(id: Long, bid: Bid): Bid? {

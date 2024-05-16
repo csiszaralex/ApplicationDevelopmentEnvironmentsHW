@@ -55,26 +55,25 @@ class ItemService(
     }
 
     fun delete(id: Long) {
+
+        itemRepository.findByIdOrNull(id) ?: return
         return itemRepository.deleteById(id)
     }
 
-    fun subscribeWatchlist(itemId: Long, userId: Long) {
-        val item = itemRepository.findByIdOrNull(itemId) ?: return
-        val user = userRepository.findByIdOrNull(userId) ?: return
+    fun subscribeWatchlist(itemId: Long, userId: Long): Int {
+        val item = itemRepository.findByIdOrNull(itemId) ?: return 0
+        val user = userRepository.findByIdOrNull(userId) ?: return 0
         val watchlist = item.watchlists.find { it.user?.id == userId }
         if (watchlist == null) {
-            item.watchlists.add(Watchlist(user = user, item = item))
-            itemRepository.save(item)
+            val watch = Watchlist()
+            watch.item = item
+            watch.user = user
+            watchlistRepository.save(watch)
+            return 1
         }
-    }
+        watchlistRepository.delete(watchlist)
+        return 2
 
-    fun unsubscribeWatchlist(itemId: Long, userId: Long) {
-        val item = itemRepository.findByIdOrNull(itemId) ?: return
-        val watchlist = item.watchlists.find { it.user?.id == userId }
-        if (watchlist != null) {
-            item.watchlists.remove(watchlist)
-            itemRepository.save(item)
-        }
     }
 
     @Scheduled(cron = "0 0 0 * * *")

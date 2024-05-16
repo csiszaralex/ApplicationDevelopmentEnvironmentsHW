@@ -1,5 +1,6 @@
 package hu.bme.auction.controller
 
+import hu.bme.auction.dto.CreateBidDto
 import hu.bme.auction.entity.Bid
 import hu.bme.auction.service.BidService
 import org.slf4j.LoggerFactory
@@ -23,13 +24,18 @@ class BidController(val bidService: BidService) {
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): ResponseEntity<Bid> {
         val bid: Bid = bidService.getOne(id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+        bid.user?.items = mutableSetOf()
         return ResponseEntity.ok(bid)
     }
 
     @PostMapping()
-    fun create(@RequestBody bid: Bid): Bid {
-        log.info("Bid created: $bid")
-        return bidService.create(bid)
+    fun create(@RequestBody bid: CreateBidDto): Bid {
+        val newBid = bidService.create(bid)
+        newBid.user?.items = mutableSetOf()
+        newBid.user?.bids = mutableSetOf()
+        newBid.item = null
+        log.info("Bid created: $newBid")
+        return newBid
     }
 
     @PutMapping("/{id}")

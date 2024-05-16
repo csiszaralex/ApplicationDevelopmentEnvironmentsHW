@@ -1,7 +1,6 @@
 package hu.bme.auction.entity
 
 import jakarta.persistence.*
-import jakarta.validation.constraints.Positive
 
 @Entity
 @Table(name = "watchlists")
@@ -17,11 +16,12 @@ open class Watchlist() {
 
     @ManyToOne
     @JoinColumn(name = "item_id", nullable = false)
-    @Positive(message = "Item must be set")
     open var item: Item? = null
 
-    constructor(user: User, item: Item) : this() {
-        this.user = user
-        this.item = item
-    }
+
+
+//    constructor(user: User, item: Item) : this() {
+//        this.user = user
+//        this.item = item
+//    }
 }
