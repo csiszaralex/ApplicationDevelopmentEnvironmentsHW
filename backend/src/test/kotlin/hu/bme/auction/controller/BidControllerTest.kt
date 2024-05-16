@@ -10,5 +10,46 @@ import org.springframework.web.bind.annotation.*
 
 @SpringBootTest
 class BidControllerTest() {
+    @Test
+    fun testCreateBid() {
+        val bid = Bid()
+        val bidService = BidService()
+        val bidController = BidController(bidService)
+        val createBidDto = CreateBidDto()
+        val responseEntity = bidController.createBid(createBidDto)
+        assertEquals(HttpStatus.CREATED, responseEntity.statusCode)
+    }
+
+    @Test
+    fun testGetBids() {
+        val bidService = BidService()
+        val bidController = BidController(bidService)
+        val responseEntity = bidController.getBids()
+        assertEquals(HttpStatus.OK, responseEntity.statusCode)
+    }
     
+    @Test
+    fun testGetBid() {
+        val bidService = BidService()
+        val bidController = BidController(bidService)
+        val responseEntity = bidController.getBid(1)
+        assertEquals(HttpStatus.OK, responseEntity.statusCode)
+    }
+
+    @Test
+    fun testDeleteBid() {
+        val bidService = BidService()
+        val bidController = BidController(bidService)
+        val responseEntity = bidController.deleteBid(1)
+        assertEquals(HttpStatus.OK, responseEntity.statusCode)
+    }
+
+    @Test
+    fun testUpdateBid() {
+        val bidService = BidService()
+        val bidController = BidController(bidService)
+        val createBidDto = CreateBidDto()
+        val responseEntity = bidController.updateBid(1, createBidDto)
+        assertEquals(HttpStatus.OK, responseEntity.statusCode)
+    }
 }
