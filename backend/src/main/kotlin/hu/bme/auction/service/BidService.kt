@@ -42,11 +42,18 @@ class BidService(
         newBid.item = item
         newBid.user = user
 
-        return bidRepository.save(newBid)
+        item.watchlists.forEach {
+            emailSenderService.sendEmailForNewBid(item.title!!, bid.amount, it.user!!.email!!)
+        }
 
-//        item.watchlists.forEach {
-//            emailSenderService.sendEmailForNewBid(item.title!!, bid.amount!!, it.user!!.email!!)
-//        }
+        val cBid = bidRepository.save(newBid)
+        cBid.item?.bids = mutableSetOf()
+        cBid.user?.bids = mutableSetOf()
+        cBid.user?.items = mutableSetOf()
+        cBid.user?.watchlists = mutableSetOf()
+        cBid.item?.user = null
+        cBid.item?.category?.items = mutableSetOf()
+        return cBid
     }
 
     fun update(id: Long, bid: Bid): Bid? {
