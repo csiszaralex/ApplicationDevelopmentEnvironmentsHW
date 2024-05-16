@@ -71,6 +71,10 @@ class ItemService(
             watchlistRepository.save(watch)
             return 1
         }
+        item.watchlists.remove(watchlist)
+        user.watchlists.remove(watchlist)
+        itemRepository.save(item)
+        userRepository.save(user)
         watchlistRepository.delete(watchlist)
         return 2
 
