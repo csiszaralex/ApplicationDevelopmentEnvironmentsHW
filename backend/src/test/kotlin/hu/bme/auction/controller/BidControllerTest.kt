@@ -10,16 +10,25 @@ import org.springframework.web.bind.annotation.*
 
 @SpringBootTest
 class BidControllerTest() {
+
+    /*
+        * Test creating a bid
+        * @return ResponseEntity with status code 201
+     */
     @Test
     fun testCreateBid() {
         val bid = Bid()
         val bidService = BidService()
         val bidController = BidController(bidService)
         val createBidDto = CreateBidDto()
-        val responseEntity = bidController.createBid(createBidDto)
+        val responseEntity = bidController.create(createBidDto)
         assertEquals(HttpStatus.CREATED, responseEntity.statusCode)
     }
 
+    /*
+        * Test getting all bids
+        * @return ResponseEntity with status code 200
+     */
     @Test
     fun testGetBids() {
         val bidService = BidService()
@@ -28,6 +37,10 @@ class BidControllerTest() {
         assertEquals(HttpStatus.OK, responseEntity.statusCode)
     }
     
+    /*
+        * Test getting a bid
+        * @return ResponseEntity with status code 200
+     */
     @Test
     fun testGetBid() {
         val bidService = BidService()
@@ -36,6 +49,10 @@ class BidControllerTest() {
         assertEquals(HttpStatus.OK, responseEntity.statusCode)
     }
 
+    /*
+        * Test deleting a bid
+        * @return ResponseEntity with status code 200
+     */
     @Test
     fun testDeleteBid() {
         val bidService = BidService()
@@ -44,6 +61,10 @@ class BidControllerTest() {
         assertEquals(HttpStatus.OK, responseEntity.statusCode)
     }
 
+    /*
+        * Test updating a bid
+        * @return ResponseEntity with status code 200
+     */
     @Test
     fun testUpdateBid() {
         val bidService = BidService()
