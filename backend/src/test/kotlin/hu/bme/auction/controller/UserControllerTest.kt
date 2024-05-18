@@ -2,93 +2,43 @@ package hu.bme.auction.controller
 
 import hu.bme.auction.dto.LoginUserDto
 import hu.bme.auction.dto.RegisterUserDto
-import hu.bme.auction.entity.User
-import hu.bme.auction.service.UserService
-import org.slf4j.LoggerFactory
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.HttpStatus
+import org.springframework.test.util.AssertionErrors.assertEquals
 
 @SpringBootTest
-class UserController(private val userService: UserService) {
-    /*
-        * Register a user with the given user
-        * @param user to register
-        * @return ResponseEntity with status code 201
-     */
+class UserControllerTest() {
+
+    @Autowired
+    private lateinit var userController: UserController
+
     @Test
-    fun testRegisterUser() {
-        val user = User()
-        val userService = UserService()
-        val userController = UserController(userService)
-        val registerUserDto = RegisterUserDto()
-        val responseEntity = userController.registerUser(registerUserDto)
-        assertEquals(HttpStatus.CREATED, responseEntity.statusCode)
+    fun testRegisterAndLoginUser() {
+        val u = RegisterUserDto()
+        u.name = "Elek"
+        u.email = "test@test.com"
+        u.password = "password"
+        u.fullName = "Elek Teszt"
+        val responseEntity = userController.register(u)
+        assertEquals("Problem with user reg",HttpStatus.OK, responseEntity.statusCode)
+        val uL = LoginUserDto()
+        uL.email = u.email!!
+        uL.password = u.password!!
+        val res2 = userController.login(uL)
+        assertEquals("Problem with user login",HttpStatus.OK, res2.statusCode)
+        uL.password = "wrong password"
+        val res3 = userController.login(uL)
+        assertEquals("Problem with user login",HttpStatus.BAD_REQUEST, res3.statusCode)
     }
 
-    /*
-        * Login a user with the given user
-        * @param user to login
-        * @return ResponseEntity with status code 200
-     */
     @Test
-    fun testLoginUser() {
-        val user = User()
-        val userService = UserService()
-        val userController = UserController(userService)
-        val loginUserDto = LoginUserDto()
-        val responseEntity = userController.loginUser(loginUserDto)
-        assertEquals(HttpStatus.OK, responseEntity.statusCode)
+    fun testLoginUnsuccessful() {
+        val uL = LoginUserDto()
+        uL.email = "ilyen biztos nincs"
+        uL.password = "ilyen biztos nincs"
+        val res2 = userController.login(uL)
+        assertEquals("Problem with unsuccessfull login", HttpStatus.BAD_REQUEST, res2.statusCode)
     }
-
-    /*
-        * Get all users
-        * @return ResponseEntity with status code 200
-     */
-    @Test
-    fun testGetUsers() {
-        val userService = UserService()
-        val userController = UserController(userService)
-        val responseEntity = userController.getUsers()
-        assertEquals(HttpStatus.OK, responseEntity.statusCode)
-    }
-
-    /*
-        * Get a user
-        * @return ResponseEntity with status code 200
-     */
-    @Test
-    fun testGetUser() {
-        val userService = UserService()
-        val userController = UserController(userService)
-        val responseEntity = userController.getUser(1)
-        assertEquals(HttpStatus.OK, responseEntity.statusCode)
-    }
-
-    /*
-        * Delete a user
-        * @return ResponseEntity with status code 200
-     */
-    @Test
-    fun testDeleteUser() {
-        val userService = UserService()
-        val userController = UserController(userService)
-        val responseEntity = userController.deleteUser(1)
-        assertEquals(HttpStatus.OK, responseEntity.statusCode)
-    }
-
-    /*
-        * Update a user
-        * @return ResponseEntity with status code 200
-     */
-    @Test
-    fun testUpdateUser() {
-        val userService = UserService()
-        val userController = UserController(userService)
-        val user = User()
-        val responseEntity = userController.updateUser(1, user)
-        assertEquals(HttpStatus.OK, responseEntity.statusCode)
-    }
-
 }
