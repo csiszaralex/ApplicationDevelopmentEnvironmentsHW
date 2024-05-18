@@ -35,6 +35,18 @@ void BidElement::setHighestBidder(const QString newHighestBidder)
     emit highestBidderChanged();
 }
 
+/**/
+QString BidElement::category() const
+{
+    return m_category;
+}
+
+void BidElement::setCategory(const QString &newCategory)
+{
+    m_category = newCategory;
+    emit categoryChanged();
+}
+
 /* S upplier name changed. User object invokes it when it's name changess
  * Normal fuction does not define item change usage, only admin can will use it. */
 void BidElement::setItemIndex(int newItemIndex)

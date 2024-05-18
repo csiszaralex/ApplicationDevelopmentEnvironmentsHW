@@ -40,6 +40,7 @@ Page {
             required property string supplierName
             required property string highestBidderName
             required property double price
+            required property string category
             required property int itemIndex
 
             color: ownGoodsListView.elementColor
@@ -102,11 +103,21 @@ Page {
                     }
                 }
 
-                Text {
-                    text: "$" + delegate.price
-                    font {
-                        bold: true
-                        pixelSize: 20
+                RowLayout {
+                    spacing: 10
+                    Text {
+                        text: delegate.price + "Ft"
+                        font {
+                            bold: true
+                            pixelSize: 20
+                        }
+                    }
+                    Text {
+                        text: delegate.category
+                        font {
+                            bold: false
+                            pixelSize: 10
+                        }
                     }
                 }
 
@@ -263,7 +274,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.margins: 10
 
-                validator: DoubleValidator {}
+                validator: IntValidator {}
                 placeholderText: "Price"
                 verticalAlignment: TextInput.AlignVCenter
                 font.pixelSize: 15
@@ -276,25 +287,22 @@ Page {
                 }
             }
 
-            Rectangle {
-                id: supplierField
+            TextField {
+                id: categoryField
 
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 Layout.margins: 10
 
-                implicitHeight: 32
-                implicitWidth: form.width * 0.25
-                radius: 8
-                color: form.fieldColor
+                placeholderText: "Category"
+                verticalAlignment: TextInput.AlignVCenter
+                font.pixelSize: 15
 
-                Text {
-                    anchors.fill: parent
-                    padding: 8
-
-                    text: User.name
-                    font.pixelSize: 15
-                    verticalAlignment: TextInput.AlignVCenter
+                background: Rectangle {
+                    implicitHeight: 32
+                    implicitWidth: form.width * 0.25
+                    radius: 8
+                    color: form.fieldColor
                 }
             }
 
@@ -382,11 +390,12 @@ Page {
             console.log("Pressed {ConfirmButton} by user " + User.name)
             if(subjectField.acceptableInput && priceField.acceptableInput) {
                 OwnGoods.addBid(
-                    OwnGoods.count,
+                    User.id,
                     subjectField.text,
                     User.name,
                     priceField.text,
-                    User.name
+                    User.name,
+                    categoryField.text
                 )
                 form.isVisible = false
                 subjectField.clear()

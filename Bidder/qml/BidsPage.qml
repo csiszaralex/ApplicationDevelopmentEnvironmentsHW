@@ -39,6 +39,7 @@ Page {
             required property string supplierName
             required property string highestBidderName
             required property double price
+            required property string category
             required property int itemIndex
 
             color: bidListView.elementColor
@@ -84,31 +85,41 @@ Page {
 
                     font {
                         bold: true
-                        pixelSize: 18
+                        pixelSize: 19
                     }
                 }
 
                 RowLayout {
-                    spacing: 24
+                    spacing: parent.width * 0.34
                     Text {
-                        text: delegate.supplierName
+                        text: "Supplier:" + delegate.supplierName
                         font.pixelSize: 10
                         font.italic: true
                     }
                     Text {
-                        text: delegate.highestBidderName
+                        text: "Highest Bidder: " + delegate.highestBidderName
                         font.pixelSize: 10
+                        font.italic: true
                     }
                 }
 
-                Text {
-                    text: "$" + delegate.price
-                    font {
-                        bold: true
-                        pixelSize: 20
+                RowLayout {
+                    spacing: 10
+                    Text {
+                        text: delegate.price + "Ft"
+                        font {
+                            bold: true
+                            pixelSize: 20
+                        }
+                    }
+                    Text {
+                        text: delegate.category
+                        font {
+                            bold: false
+                            pixelSize: 10
+                        }
                     }
                 }
-
             }
 
             ColumnLayout {
@@ -302,8 +313,8 @@ Page {
         function confirm() {
             console.log("Pressed {ConfirmButton} by user " + User.name)
 
-            BidsList.placeBid(bidForm.itemIndex, bidAmountField.text, User.name)
-            // bidListView.modelUpdated()
+            BidsList.placeBid(bidForm.itemIndex, bidAmountField.text, User.id, User.name)
+            bidListView.modelUpdated()
 
             bidForm.isVisible = false
             bidAmountField.clear()

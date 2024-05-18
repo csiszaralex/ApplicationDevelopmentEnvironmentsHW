@@ -21,3 +21,16 @@ void User::setName(const QString &newName)
         //emit nameChanged();
     }
 }
+
+int User::id() const
+{
+    return m_id;
+}
+
+void User::setId(int newId)
+{
+    if (m_id == newId)
+        return;
+    m_id = newId;
+    emit idChanged();
+}

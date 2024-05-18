@@ -15,6 +15,7 @@ class BidElement : public QObject
     Q_PROPERTY(QString supplier READ supplier WRITE setSupplier NOTIFY supplierChanged)
     Q_PROPERTY(double price READ price WRITE setPrice NOTIFY priceChanged)
     Q_PROPERTY(QString highestBidder READ highestBidder WRITE setHighestBidder NOTIFY highestBidderChanged)
+    Q_PROPERTY(QString category READ category WRITE setCategory NOTIFY categoryChanged)
 
 public:
     explicit BidElement(QObject *parent = nullptr);
@@ -42,6 +43,9 @@ public:
     QString highestBidder();
     void setHighestBidder(const QString newHighestBidder);
 
+    QString category() const;
+    void setCategory(const QString &newCategory);
+
 public slots:
     //void changeItemPrice(const QString& newBidder, const double& newPrice);
     //void supplierNameChanged(const QString& newName);
@@ -54,6 +58,8 @@ signals:
     void priceChanged();
     void highestBidderChanged();
 
+    void categoryChanged();
+
 protected:
     // Data references of class properties
     int m_itemIndex;
@@ -62,6 +68,8 @@ protected:
     double m_price;
     QString m_highestBidder;
 
+private:
+    QString m_category;
 };
 
 #endif // BIDELEMENT_H
