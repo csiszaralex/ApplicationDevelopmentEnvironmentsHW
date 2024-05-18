@@ -15,6 +15,10 @@ class BidService(
     val emailSenderService: EmailSenderService,
     private val userRepository: UserRepository
 ) {
+    /*
+        * Get all bids from the database
+        * @return List<Bid> of all bids
+     */
     fun getAll(): List<Bid> {
         val bids = bidRepository.findAll()
         bids.forEach {
@@ -27,10 +31,20 @@ class BidService(
         return bids
     }
 
+    /*
+        * Get one bid with the given id
+        * @param id of the bid to get
+        * @return Bid or null if the bid does not exist
+     */
     fun getOne(id: Long): Bid? {
         return bidRepository.findByIdOrNull(id)
     }
 
+    /*
+        * Create a bid with the given bid
+        * @param bid to create
+        * @return Bid or null if the item or user does not exist
+     */
     fun create(bid: CreateBidDto): Bid {
         val item = itemRepository.findByIdOrNull(bid.itemId) ?: throw IllegalArgumentException("Item not found")
         if(item.startingBid >= bid.amount) throw IllegalArgumentException("Bid amount must be greater than the starting bid")
@@ -56,6 +70,12 @@ class BidService(
         return cBid
     }
 
+    /*
+        * Update a bid with the given id
+        * @param id of the bid to update
+        * @param bid to update
+        * @return Bid or null if the bid does not exist
+     */
     fun update(id: Long, bid: Bid): Bid? {
         val newBid = bidRepository.findByIdOrNull(id) ?: return null
         bid.amount?.let { newBid.amount = it }
@@ -64,6 +84,10 @@ class BidService(
         return bidRepository.save(newBid)
     }
 
+    /*
+        * Delete a bid with the given id
+        * @param id of the bid to delete
+     */
     fun delete(id: Long) {
         return bidRepository.deleteById(id)
     }
