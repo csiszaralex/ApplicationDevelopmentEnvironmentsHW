@@ -11,10 +11,7 @@ class CategoryService(val categoryRepository: CategoryRepository) {
     fun getAll(): List<Category> {
         val cats = categoryRepository.findAll()
         cats.forEach{ cat ->
-            cat.items.forEach{ item ->
-                item.category = null
-                item.user = null
-            }
+            cat.items= mutableSetOf()
         }
         return cats
     }

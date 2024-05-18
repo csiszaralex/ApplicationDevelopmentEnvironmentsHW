@@ -31,23 +31,9 @@ class BidController(val bidService: BidService) {
     @PostMapping()
     fun create(@RequestBody bid: CreateBidDto): Bid {
         val newBid = bidService.create(bid)
-        newBid.user?.items = mutableSetOf()
-        newBid.user?.bids = mutableSetOf()
+        newBid.user = null
         newBid.item = null
         log.info("Bid created: $newBid")
         return newBid
-    }
-
-    @PutMapping("/{id}")
-    fun update(@PathVariable id: Long, @RequestBody bid: Bid): ResponseEntity<Bid> {
-        val newBid = bidService.update(id, bid) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
-        log.info("Bid updated: $newBid")
-        return ResponseEntity.ok(newBid)
-    }
-
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long){
-        log.info("Bid deleted: $id")
-        return bidService.delete(id)
     }
 }

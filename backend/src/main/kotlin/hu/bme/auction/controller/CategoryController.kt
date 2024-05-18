@@ -27,9 +27,9 @@ class CategoryController(val categoryService: CategoryService) {
     }
 
     @PostMapping()
-    fun create(@RequestBody cat: Category): Category {
+    fun create(@RequestBody cat: Category): ResponseEntity<Category> {
         log.info("Category created: $cat")
-        return categoryService.create(cat)
+        return ResponseEntity(categoryService.create(cat), HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
@@ -41,8 +41,9 @@ class CategoryController(val categoryService: CategoryService) {
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long){
+    fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
+        val cat = categoryService.getOne(id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         log.info("Category deleted: $id")
-        return categoryService.delete(id)
+        return ResponseEntity.ok(categoryService.delete(id))
     }
 }

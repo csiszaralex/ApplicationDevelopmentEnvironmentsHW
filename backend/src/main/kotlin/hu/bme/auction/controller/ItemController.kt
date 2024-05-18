@@ -42,7 +42,7 @@ class ItemController(val itemService: ItemService) {
     }
 
     @PostMapping()
-    fun create(@RequestBody i: CreateItemDto): ItemWithDetailsDto {
+    fun create(@RequestBody i: CreateItemDto): ResponseEntity<ItemWithDetailsDto> {
         val cI = itemService.create(i)
         log.info("Item created: $cI")
         val itemWithDetailsDto = ItemWithDetailsDto()
@@ -53,7 +53,7 @@ class ItemController(val itemService: ItemService) {
         itemWithDetailsDto.highestBid = cI.startingBid
         itemWithDetailsDto.highestBidderName = cI.user?.name ?: "No owner"
         itemWithDetailsDto.category = cI.category?.name ?: "No category"
-        return itemWithDetailsDto
+        return ResponseEntity.ok(itemWithDetailsDto)
     }
 
     @PutMapping("/{id}")
@@ -64,9 +64,10 @@ class ItemController(val itemService: ItemService) {
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long){
+    fun delete(@PathVariable id: Long):ResponseEntity<Unit>{
         log.info("Item deleted: $id")
-        return itemService.delete(id)
+        itemService.delete(id)
+        return ResponseEntity.ok().build()
     }
 
     @GetMapping("/{itemId}/subscribe/{userId}")
