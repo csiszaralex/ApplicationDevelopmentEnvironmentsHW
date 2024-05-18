@@ -42,7 +42,7 @@ class CategoryController(val categoryService: CategoryService) {
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
-        val cat = categoryService.getOne(id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+        categoryService.getOne(id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
         log.info("Category deleted: $id")
         return ResponseEntity.ok(categoryService.delete(id))
     }
