@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.test.context.TestPropertySource
 
 @SpringBootTest
-@TestPropertySource(locations = ["classpath:application-test.properties"])
+@TestPropertySource(locations = ["classpath:test.properties"])
 class BidControllerTest() {
 
     @Autowired

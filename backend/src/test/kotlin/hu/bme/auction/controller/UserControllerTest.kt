@@ -10,7 +10,7 @@ import org.springframework.test.context.TestPropertySource
 import org.springframework.test.util.AssertionErrors.assertEquals
 
 @SpringBootTest
-@TestPropertySource(locations = ["classpath:application-test.properties"])
+@TestPropertySource(locations = ["classpath:test.properties"])
 class UserControllerTest() {
 
     @Autowired
