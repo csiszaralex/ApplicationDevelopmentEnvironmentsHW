@@ -29,7 +29,7 @@ Window {
         Image {
             id: menuImage
             width: 50
-            source: "qrc:/Bidder/assets/icons/menu.svg"
+            source: "qrc:/assets/icons/menu.svg"
 
             anchors {
                 top: parent.top
@@ -46,7 +46,7 @@ Window {
         Image {
             id: backImage
             width: 50
-            source: "qrc:/Bidder/assets/icons/back.png"
+            source: "qrc:/assets/icons/back.png"
             visible: pageStackView.depth > 1
 
             anchors {

@@ -64,7 +64,7 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     height: 24
                     width: 24
-                    source: "qrc:/Bidder/assets/icons/picture.svg"
+                    source: "qrc:/assets/icons/picture.svg"
                 }
             }
 
@@ -159,7 +159,7 @@ Page {
                         anchors.margins: 5
                         anchors.fill: parent
                         fillMode: Image.PreserveAspectFit
-                        source: "qrc:/Bidder/assets/icons/bell.png"
+                        source: "qrc:/assets/icons/bell.png"
                     }
 
                     MouseArea {
@@ -188,7 +188,7 @@ Page {
                         anchors.margins: 5
                         anchors.fill: parent
                         fillMode: Image.PreserveAspectFit
-                        source: "qrc:/Bidder/assets/icons/bid.png"
+                        source: "qrc:/assets/icons/bid.png"
                     }
 
                     MouseArea {
