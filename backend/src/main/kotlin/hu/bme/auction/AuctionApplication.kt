@@ -16,6 +16,9 @@ class AuctionApplication {
 	private val logger = LoggerFactory.getLogger(javaClass)
 	@PostConstruct
 	fun testComponents() {
+		val initCat = categoryRepository.findByName("Ruha")
+		if(initCat != null) categoryRepository.delete(initCat)
+
 		val cat = Category("Ruha")
 		categoryRepository.save(cat)
 
