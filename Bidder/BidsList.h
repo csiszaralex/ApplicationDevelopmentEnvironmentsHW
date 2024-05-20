@@ -9,8 +9,8 @@
 #include "BidElement.h"
 
 namespace {
-    const QString &itemsUrl = "http://152.66.183.110:8080/item";
-    const QString &bidUrl = "http://152.66.183.110:8080/bid";
+    const QString &itemsUrl = "http://localhost:8080/item";
+    const QString &bidUrl = "http://localhost:8080/bid";
 }
 
 /* Istenosztályként müködik, minden funkció megvalósitásáért felel.
