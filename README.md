@@ -1,5 +1,13 @@
 # Házi feladat
 
+### Archive
+
+Mivel a tárgy véget ért, így a repository archiválva lett.
+
+### Leírás
+
+A projekt egy komplett alkalmazás, mely `kotlin`-t használ backendnek és `qt`-t és benne `qml`-t frontendnek.
+
 ### Csapatnév: 20cmProcastinationStation
 
 ### Végső pontszám
